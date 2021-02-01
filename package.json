@@ -1,7 +1,7 @@
 {
   "name": "@corets/use-throttle",
   "description": "React hooks for throttled values and functions",
-  "version": "0.0.0",
+  "version": "0.0.1-0",
   "author": "Maxim Kott",
   "license": "MIT",
   "main": "dist/index.js",
@@ -50,11 +50,11 @@
     "jest": "^25.1.0",
     "lodash": "^4.17.20",
     "microbundle": "^0.13.0",
+    "np": "^7.2.0",
     "prettier": "2.2.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "ts-jest": "^25.2.1",
-    "typescript": "^3.8.3",
-    "np": "^7.2.0"
+    "typescript": "^3.8.3"
   }
 }
