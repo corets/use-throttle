@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { throttle } from "lodash-es"
+import { throttle } from "lodash"
 import { UseThrottle } from "./types"
 
 export const useThrottle: UseThrottle = <TValue>(

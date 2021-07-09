@@ -1,8 +1,7 @@
 import React, { useState } from "react"
-import { mount } from "enzyme"
 import { useThrottle } from "./useThrottle"
-import { act } from "react-dom/test-utils"
 import { createTimeout } from "@corets/promise-helpers"
+import { act, render, screen } from "@testing-library/react"
 
 describe("useThrottle", () => {
   it("throttles value", async () => {
@@ -19,39 +18,36 @@ describe("useThrottle", () => {
 
       const debouncedCount = useThrottle(count, 30)
 
-      return (
-        <div>
-          {renders},{count},{debouncedCount}
-        </div>
-      )
+      return <h1>{renders},{count},{debouncedCount}</h1>
     }
 
-    const wrapper = mount(<Test />)
-    const targetText = () => wrapper.find("div").text()
+    render(<Test/>)
 
-    expect(targetText()).toBe("1,0,0")
+    const target = screen.getByRole("heading")
+
+    expect(target).toHaveTextContent("1,0,0")
 
     act(() => _setCount(1))
 
-    expect(targetText()).toBe("2,1,0")
+    expect(target).toHaveTextContent("3,1,1")
 
     act(() => _setCount(2))
 
-    expect(targetText()).toBe("3,2,0")
+    expect(target).toHaveTextContent("4,2,1")
 
     await act(() => createTimeout(10))
 
-    expect(targetText()).toBe("3,2,0")
+    expect(target).toHaveTextContent("4,2,1")
 
-    await act(() => createTimeout(10))
+    await act(() => createTimeout())
 
     act(() => _setCount(3))
 
-    expect(targetText()).toBe("5,3,2")
+    expect(target).toHaveTextContent("5,3,1")
 
     await act(() => createTimeout(30))
 
-    expect(targetText()).toBe("6,3,3")
+    expect(target).toHaveTextContent("6,3,3")
   })
 
   it("throttles function", async () => {
@@ -65,38 +61,35 @@ describe("useThrottle", () => {
       const increment = useThrottle((x) => setCount(count + x), 30)
       _increment = increment
 
-      return (
-        <div>
-          {renders},{count}
-        </div>
-      )
+      return <h1>{renders},{count}</h1>
     }
 
-    const wrapper = mount(<Test />)
-    const targetText = () => wrapper.find("div").text()
+    render(<Test/>)
 
-    expect(targetText()).toBe("1,0")
+    const target = screen.getByRole("heading")
+
+    expect(target).toHaveTextContent("1,0")
 
     act(() => _increment(1))
 
-    expect(targetText()).toBe("2,1")
+    expect(target).toHaveTextContent("2,1")
 
     act(() => _increment(2))
 
     await act(() => createTimeout(20))
 
-    expect(targetText()).toBe("2,1")
+    expect(target).toHaveTextContent("2,1")
 
     act(() => _increment(3))
 
-    expect(targetText()).toBe("2,1")
+    expect(target).toHaveTextContent("2,1")
 
     await act(() => createTimeout(10))
 
-    expect(targetText()).toBe("3,4")
+    expect(target).toHaveTextContent("3,4")
 
     await act(() => createTimeout(20))
 
-    expect(targetText()).toBe("3,4")
+    expect(target).toHaveTextContent("3,4")
   })
 })
