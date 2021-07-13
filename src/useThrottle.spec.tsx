@@ -39,7 +39,7 @@ describe("useThrottle", () => {
 
     expect(target).toHaveTextContent("4,2,1")
 
-    await act(() => createTimeout())
+    await act(() => createTimeout(0))
 
     act(() => _setCount(3))
 
