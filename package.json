@@ -1,7 +1,7 @@
 {
   "name": "@corets/use-throttle",
   "description": "React hooks for throttled values and functions",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Maxim Kott",
   "license": "MIT",
   "main": "./dist/index.js",
