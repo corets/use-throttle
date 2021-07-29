@@ -21,7 +21,7 @@
     "/dist"
   ],
   "repository": "github:corets/use-throttle",
-  "homepage": "https://corets.github.io/use-throttle",
+  "homepage": "https://docs.corets.io/hooks/use-throttle",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
